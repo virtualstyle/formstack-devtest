@@ -67,6 +67,13 @@ class User
     protected $repo;
 
     /**
+     * Boolean updated flag.
+     *
+     * @var bool Flag to track unsaved changes
+     */
+    protected $updated;
+
+    /**
      * These should probably be in a class, or at least a file, of their own,
      * but in the short term that caused a problem with PHPUnit's error handling
      * so I just moved them back here. Ostensibly, I COULD just put the strings
@@ -96,6 +103,14 @@ class User
     public function __construct(array $data = array())
     {
         if ($this->validateData($data) === true) {
+            $this->id = null;
+            $this->username = $data['username'];
+            $this->password = $data['password'];
+            $this->password_hash = null;
+            $this->email = $data['email'];
+            $this->firstname = $data['firstname'];
+            $this->lastname = $data['lastname'];
+            $this->updated = true;
         }
     }
 

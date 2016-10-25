@@ -11,6 +11,7 @@ help:
 	@echo "  gitadd                 Executes Git add"
 	@echo "  gitcommit              Executes Git commit"
 	@echo "  gitpush                Executes Git push"
+	@echo "  php-xml                Enables php-xml extension for PHPUnit"
 
 tests:
 	./bin/phpunit;
@@ -37,7 +38,10 @@ gitcommit:
 	@read -p "Enter Commit Message:" message; \
 	git commit -m"$$message";
 
-git push:
+gitpush:
 	git push -u origin master;
+
+php-xml:
+	sudo apt-get install php-xml;
 
 .PHONY: tests coverage cs travis-tests docs migrate rollback gitadd gitcommit gitpush

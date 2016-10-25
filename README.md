@@ -20,13 +20,13 @@ git clone https://github.com/virtualstyle/formstack-devtest.git
 ```
 vagrant up
 ```
-Note - you might need to reload and or vagrant up --provision a time or two, like I said, I had problems with the VM, I didn't change the vagrantfile, and I hope the issues were all due to my OS difference.
+*NOTE* - you might need to reload and or vagrant up --provision a time or two, like I said, I had problems with the VM, I didn't change the vagrantfile, and I hope the issues were all due to my OS difference.
 
 - Navigate to the repo clone folder (either locally or on the VM) and run composer install
 ```
 composer install
 ```
-Note - option --no-dev will eschew some of the composer dependency installs
+*NOTE* - option --no-dev will eschew some of the composer dependency installs
 
 - I've included a makefile for convenience. The following commands will get the help info like below:
 ```
@@ -40,7 +40,16 @@ migrate                Executes the Phinx migrate
 rollback               Executes the Phinx rollback
 coverage               Creates the Coverage reports
 cs                     Executes the PHP CS Fixer
-git                    Executes Git add/commit/push
+gitadd                 Executes Git add
+gitcommit              Executes Git commit
+gitpush                Executes Git push
+php-xml                Enables php-xml extension for PHPUnit
 ```
 
-These commands can be used to create and destroy the mysql table and test data, build the PHPDocs, execute the PHPUnit tests, and build the PHPUnit code coverage report, as well as fix any code styling mistakes and add, commit, & push the git repo. Unit tests should only be run after a fresh migrate to ensure test data integrity. Also, you'll need to set your git remote for git commands to work.
+These commands can be used to create and destroy the mysql table and test data, build the PHPDocs, execute the PHPUnit tests, and build the PHPUnit code coverage report, as well as fix any code styling mistakes and add, commit, & push the git repo.
+
+*NOTE* - PHPUnit requires php-xml to install and run. Composer does not manage PHP extensions, so I added a make entry.
+
+*NOTE* - Unit tests should only be run after a fresh migrate to ensure test data integrity.
+
+*NOTE* - You'll need to set your git remote for git remote commands to work properly.

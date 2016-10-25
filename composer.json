@@ -4,6 +4,7 @@
     "keywords": ["rob wood", "formstack"],
     "require": {
         "php": ">=7.0",
+        "ext-dom": "*",
         "robmorgan/phinx": "^0.6.4"
     },
     "require-dev": {

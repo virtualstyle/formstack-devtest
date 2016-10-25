@@ -46,10 +46,11 @@ class MysqlUserRepositoryTest extends PHPUnit_Framework_TestCase
             'password' => 'password',
             'email' => 'testuser@test.com',
             'firstname' => 'test',
-            'lastname' => 'user',
+            'lastname' => 'user'
         );
 
         $user = new User($test_data);
+        die(print_r($user));
 
     }
 }

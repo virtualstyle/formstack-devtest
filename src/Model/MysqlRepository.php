@@ -77,8 +77,6 @@ abstract class MysqlRepository
      */
     public function save()
     {
-        die($this->table.' - '.print_r($this->data, true));
-
         $set_string = '';
 
         if (!isset($data['id']) || is_null($data['id'])) {
