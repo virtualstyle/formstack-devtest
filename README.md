@@ -43,4 +43,4 @@ cs                     Executes the PHP CS Fixer
 git                    Executes Git add/commit/push
 ```
 
-These commands can be used to create and destroy the mysql table and test data, build the PHPDocs, execute the PHPUnit tests, and build the PHPUnit code coverage report, as well as fix any code styling mistakes and add, commit, & push the git repo. Unit tests should only be run after a fresh migrate to ensure test data integrity. 
+These commands can be used to create and destroy the mysql table and test data, build the PHPDocs, execute the PHPUnit tests, and build the PHPUnit code coverage report, as well as fix any code styling mistakes and add, commit, & push the git repo. Unit tests should only be run after a fresh migrate to ensure test data integrity. Also, you'll need to set your git remote for git commands to work.

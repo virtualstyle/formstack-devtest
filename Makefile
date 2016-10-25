@@ -8,7 +8,9 @@ help:
 	@echo "  rollback               Executes the Phinx rollback"
 	@echo "  coverage               Creates the Coverage reports"
 	@echo "  cs                     Executes the PHP CS Fixer"
-	@echo "  git                    Executes Git add/commit/push"
+	@echo "  gitadd                 Executes Git add"
+	@echo "  gitcommit              Executes Git commit"
+	@echo "  gitpush                Executes Git push"
 
 tests:
 	./bin/phpunit;
@@ -29,13 +31,13 @@ cs:
 	./bin/php-cs-fixer fix ./src;
 
 gitadd:
-	git add .
+	git add .;
 
 gitcommit:
 	@read -p "Enter Commit Message:" message; \
 	git commit -m"$$message";
 
 git push:
-	git push -u origin master
+	git push -u origin master;
 
 .PHONY: tests coverage cs travis-tests docs migrate rollback gitadd gitcommit gitpush

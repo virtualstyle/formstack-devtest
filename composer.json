@@ -4,12 +4,12 @@
     "keywords": ["rob wood", "formstack"],
     "require": {
         "php": ">=7.0",
-        "robmorgan/phinx": "^0.6.4",
-	    "phpdocumentor/phpdocumentor": "2.*"
+        "robmorgan/phinx": "^0.6.4"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.6",
-        "friendsofphp/php-cs-fixer": "~1.7"
+        "friendsofphp/php-cs-fixer": "~1.7",
+	    "phpdocumentor/phpdocumentor": "2.*"
     },
     "autoload": {
         "psr-4": {
