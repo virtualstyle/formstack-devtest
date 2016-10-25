@@ -1,0 +1,28 @@
+*.spec
+.*.swp
+.repodata
+cache
+repodata
+.idea
+.kitchen
+.DS_Store
+.project
+.settings
+.bundle
+.vagrant
+
+#composer
+/vendor/
+/bin/
+
+#PHPDocumentor
+/docs/
+
+# PHPUnit
+phpunit.xml
+
+# Build data
+/build/
+
+# Composer PHAR
+/composer.phar
