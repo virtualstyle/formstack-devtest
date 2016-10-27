@@ -13,6 +13,8 @@ interface Database
      * Set the connection to a DatabaseConnection interface.
      *
      * @method setConnection
+     *
+     * @param Connection $connection A valid Connection object
      */
     public function setConnection(Connection $connection);
 
@@ -75,9 +77,35 @@ interface Database
      *
      * @method insert
      *
+     * @param mixed $table      Table name or object
      * @param array $parameters Array of field => value
      *
      * @return int
      */
-    public function insert($table, array $options = array());
+    public function insert($table, array $parameters = array());
+
+    /**
+     * Update an entity in the data store.
+     *
+     * @method update
+     *
+     * @param mixed $table      Table name or object
+     * @param array $parameters Array of field => value
+     * @param mixed $where      Where clause string or object
+     *
+     * @return int
+     */
+    public function update($table, array $parameters, $where = '');
+
+    /**
+     * Delete an entity from the data store.
+     *
+     * @method delete
+     *
+     * @param mixed $table Table name or object
+     * @param mixed $where Where clause string or object
+     *
+     * @return int
+     */
+    public function delete($table, $where = '');
 }
