@@ -17,7 +17,7 @@ tests:
 	./bin/phpunit;
 
 docs:
-	./bin/phpdoc -d ./src -t ./docs;
+	./bin/phpdoc -d ./src -t ./build/docs;
 
 migrate:
 	./bin/phinx migrate -e development && ./bin/phinx seed:run -e development -v;
@@ -30,6 +30,9 @@ coverage:
 
 cs:
 	./bin/php-cs-fixer fix ./src;
+	
+cstests:
+	./bin/php-cs-fixer fix ./tests;
 
 gitadd:
 	git add .;

@@ -27,7 +27,7 @@ class FormstackMigration extends AbstractMigration
      */
     public function change()
     {
-        
+
         // create the table
         $table = $this->table('user');
         $table->addColumn('username',  'string', array('limit' => 64, 'null' => false))
@@ -36,6 +36,5 @@ class FormstackMigration extends AbstractMigration
             ->addColumn('firstname',  'string', array('limit' => 32, 'null' => false))
             ->addColumn('lastname',  'string', array('limit' => 32, 'null' => false))
             ->create();
-
     }
 }

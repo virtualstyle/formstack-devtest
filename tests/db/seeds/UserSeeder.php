@@ -21,7 +21,7 @@ class UserSeeder extends AbstractSeed
               //password1
               'email' => 'userone@test.com',
               'firstname' => 'user',
-              'lastname' => 'one'
+              'lastname' => 'one',
           ),
           array(
               'username' => 'user2',
@@ -29,7 +29,7 @@ class UserSeeder extends AbstractSeed
               //password2
               'email' => 'user2@test.com',
               'firstname' => 'two',
-              'lastname' => '2'
+              'lastname' => '2',
           ),
           array(
               'username' => 'user3',
@@ -37,7 +37,7 @@ class UserSeeder extends AbstractSeed
               //password3
               'email' => 'user3@test.com',
               'firstname' => 'three',
-              'lastname' => '3'
+              'lastname' => '3',
           ),
           array(
               'username' => 'user4',
@@ -45,7 +45,7 @@ class UserSeeder extends AbstractSeed
               //password4
               'email' => 'user4@test.com',
               'firstname' => 'four',
-              'lastname' => '4'
+              'lastname' => '4',
           ),
           array(
               'username' => 'user5',
@@ -53,8 +53,8 @@ class UserSeeder extends AbstractSeed
               //password5
               'email' => 'user5@test.com',
               'firstname' => 'five',
-              'lastname' => '5'
-          )
+              'lastname' => '5',
+          ),
         );
 
         $posts = $this->table('user');

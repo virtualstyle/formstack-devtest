@@ -2,13 +2,13 @@
 /**
  * User object repository interface.
  */
-namespace Virtualstyle\FormstackDevtest\Model;
+namespace FormstackDevtest\Model\Repository;
 
 /**
  * Interface between user data storage and application objects.
  */
 interface UserRepository
 {
-    public function save();
-    public function delete();
+    public function save(User $user);
+    public function delete(User $user);
 }

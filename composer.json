@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Virtualstyle\\FormstackDevtest\\": "src"
+            "FormstackDevtest\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Virtualstyle\\FormstackDevtest\\": "tests"
+            "FormstackDevtest\\": "tests"
         }
     },
     "config": {

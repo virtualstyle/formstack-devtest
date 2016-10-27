@@ -2,7 +2,7 @@
 /**
  * User object business logic.
  */
-namespace Virtualstyle\FormstackDevtest\Model;
+namespace FormstackDevtest\Model;
 
 /**
  * User object handles the application facing side of the data model.
@@ -136,6 +136,30 @@ class User
     public function getRepo()
     {
         return $this->repo;
+    }
+
+    /**
+     * Expose the id data member.
+     *
+     * @method getId
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Return object variables.
+     *
+     * @method getVars
+     *
+     * @return array
+     */
+    public function getVars()
+    {
+        return get_object_vars($this);
     }
 
     /**
