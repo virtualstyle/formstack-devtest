@@ -62,7 +62,7 @@ abstract class AbstractRepository
             array('id' => $id));
 
         if (!$data = $this->database->fetch()) {
-            return null;
+            return false;
         }
 
         return $this->createObject($data);

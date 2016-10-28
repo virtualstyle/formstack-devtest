@@ -23,14 +23,14 @@ migrate:
 	./bin/phinx migrate -e development && ./bin/phinx seed:run -e development -v;
 
 rollback:
-	./bin/phinx rollback -e development -t 0;
+	./bin/phinx rollback -e development -t 0 -f;
 
 coverage:
 	./bin/phpunit --coverage-html build/coverage;
 
 cs:
 	./bin/php-cs-fixer fix ./src;
-	
+
 cstests:
 	./bin/php-cs-fixer fix ./tests;
 

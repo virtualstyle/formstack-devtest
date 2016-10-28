@@ -239,7 +239,7 @@ class PdoDatabase implements Repository\Database\DatabaseInterface
             $parameters[':'.$col] = $value;
         }
 
-        $sql = 'INSERT intO '.$table
+        $sql = 'INSERT INTO '.$table
             .' ('.$cols.')  VALUES (:'.$values.')';
 
         return (int) $this->prepare($sql)
