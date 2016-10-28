@@ -2,12 +2,12 @@
 /**
  * An interface for interacting with databases.
  */
-namespace FormstackDevtest\Model\Repository\Database;
+namespace Virtualstyle\FormstackDevtest\Model\Repository\Database;
 
 /**
  * An interface for interacting with databases.
  */
-interface Database
+interface DatabaseInterface
 {
     /**
      * Set the connection to a DatabaseConnection interface.
@@ -16,7 +16,7 @@ interface Database
      *
      * @param Connection $connection A valid Connection object
      */
-    public function setConnection(Connection $connection);
+    public function setConnection(ConnectionInterface $connection);
 
     /**
      * Get the DatabaseConnection interface.
@@ -44,7 +44,7 @@ interface Database
      *
      * @method execute
      *
-     * @param array $parameters Array of parameters and other data
+     * @param array $parameters An array of parameters
      *
      * @return mixed
      */
@@ -55,7 +55,7 @@ interface Database
      *
      * @method fetch
      *
-     * @param array $options Array of implementation options
+     * @param array $options An array of implementation options
      *
      * @return mixed
      */
@@ -66,11 +66,24 @@ interface Database
      *
      * @method fetchAll
      *
-     * @param array $options Array of implementation options
+     * @param array $options An array of implementation options
      *
      * @return mixed
      */
     public function fetchAll(array $options = array());
+
+    /**
+     * Select a collection of entities from the data store.
+     *
+     * @method select
+     *
+     * @param mixed $table      Table name or object
+     * @param array $parameters An array of field => value
+     *
+     * @return int
+     */
+    public function select($table, array $parameters = array(),
+        bool $operator = false);
 
     /**
      * Insert an entity into the data store.
@@ -78,7 +91,7 @@ interface Database
      * @method insert
      *
      * @param mixed $table      Table name or object
-     * @param array $parameters Array of field => value
+     * @param array $parameters An array of field => value
      *
      * @return int
      */
@@ -90,7 +103,7 @@ interface Database
      * @method update
      *
      * @param mixed $table      Table name or object
-     * @param array $parameters Array of field => value
+     * @param array $parameters An array of field => value
      * @param mixed $where      Where clause string or object
      *
      * @return int

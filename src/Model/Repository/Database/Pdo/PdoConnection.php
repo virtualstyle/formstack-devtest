@@ -3,14 +3,15 @@
  * PDODatabaseConnection implements the DatabaseConnection interface
  * for PDO.
  */
-namespace FormstackDevtest\Model\Repository\Database\Pdo;
+namespace Virtualstyle\FormstackDevtest\Model\Repository\Database\Pdo;
+
+use Virtualstyle\FormstackDevtest\Model\Repository as Repository;
 
 /**
  * PDODatabaseConnection provides a concrete implementation of the
  * DatabaseConnection interface using the flexibility of PDO.
  */
-class Connection implements
-    \FormstackDevtest\Model\Repository\Database\Connection
+class PdoConnection implements Repository\Database\ConnectionInterface
 {
     /**
      * Our connection configuration data will be stored here in an array.

@@ -3,13 +3,13 @@
  * DatabaseConnection provides an interface for abstracting
  * and reusing data server connections as shared dependencies.
  */
-namespace FormstackDevtest\Model\Repository\Database;
+namespace Virtualstyle\FormstackDevtest\Model\Repository\Database;
 
 /**
  * DatabaseConnection provides an interface for abstracting
  * and reusing data server connections as shared dependencies.
  */
-interface Connection
+interface ConnectionInterface
 {
     /**
      * Setter injection for configuration.

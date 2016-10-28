@@ -2,7 +2,9 @@
 /**
  * User object business logic.
  */
-namespace FormstackDevtest\Model;
+namespace Virtualstyle\FormstackDevtest\Model\User;
+
+use Virtualstyle\FormstackDevtest\Model\Repository as Repository;
 
 /**
  * User object handles the application facing side of the data model.
@@ -71,7 +73,7 @@ class User
      *
      * @var bool Flag to track unsaved changes
      */
-    protected $updated;
+    protected $updated = false;
 
     /**
      * These should probably be in a class, or at least a file, of their own,
@@ -103,14 +105,22 @@ class User
     public function __construct(array $data = array())
     {
         if ($this->validateData($data) === true) {
-            $this->id = null;
+            if (!isset($data['id'])) {
+                $this->id = null;
+            } else {
+                $this->id = $data['id'];
+            }
             $this->username = $data['username'];
             $this->password = $data['password'];
             $this->password_hash = null;
             $this->email = $data['email'];
             $this->firstname = $data['firstname'];
             $this->lastname = $data['lastname'];
-            $this->updated = true;
+            if (!isset($data['updated'])) {
+                $this->updated = false;
+            } else {
+                $this->updated = $data['updated'];
+            }
         }
     }
 
@@ -121,7 +131,7 @@ class User
      *
      * @param UserRepository $repo UserRepository interface
      */
-    public function setRepo(UserRepository $repo)
+    public function setRepo(Repository\UserRepository $repo)
     {
         $this->repo = $repo;
     }

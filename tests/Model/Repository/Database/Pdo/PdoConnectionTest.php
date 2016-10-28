@@ -2,12 +2,22 @@
 /**
  * PDO Connection object unit tests.
  */
-namespace FormstackDevtest\Model\Repository\Database\Pdo;
+namespace Virtualstyle\FormstackDevtest\Model\Repository\Database\Pdo;
 
 /**
- * PDO Connection object unit tests.
- */
-class ConnectionTest extends \PHPUnit_Framework_TestCase
+  * PDO Connection object unit tests.
+  */
+
+ /**
+  * Due to the restrictions of the project, this isn't REALLY outside
+  * the webroot, but that's the idea here. This is a rough
+  * implementation, and should really be worked into an application
+  * configuration scheme to define all various constants and config
+  * in one place for each runtime instance.
+  */
+ require_once dirname(__FILE__).'/../../../../../build/pdo_config.php';
+
+class PdoConnectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the object constructor.
@@ -16,17 +26,8 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetConfigAndSetConnectionAndGetConnection()
     {
-        /**
-         * Due to the restrictions of the project, this isn't REALLY outside
-         * the webroot, but that's the idea here. This is a rough
-         * implementation, and should really be worked into an application
-         * configuration scheme to define all various constants and config
-         * in one place for each runtime instance.
-         */
-        require_once dirname(__FILE__).'/../src/pdo_config.php';
-
         // Test setConfig
-        $pdo_connection = new Connection();
+        $pdo_connection = new PdoConnection();
         $pdo_connection->setConfig(
             array('dsn' => PDO_DSN, 'user' => PDO_USER, 'password' => PDO_PASS,
                 'driverOptions' => array(),
@@ -52,7 +53,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
             PDO_PASS,
             array()
         );
-        $pdo_connection = new Connection();
+        $pdo_connection = new PdoConnection();
         $pdo_connection->setConfig(
             array('dsn' => PDO_DSN, 'user' => PDO_USER, 'password' => PDO_PASS,
                 'driverOptions' => array(),

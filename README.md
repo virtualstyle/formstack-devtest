@@ -1,16 +1,35 @@
 # Formstack Software Engineer Assignment
 
+## Development Tools:
+
+- As given, PHPUnit (Image was complaining about php-dom, which installing php-xml fixed)
+- As given, Vagrant and the bento/Ubuntu-16.04 image
+- As suggested, Composer for dependency management and autoloading
+- As suggested, Phinx for rapid setup and teardown of test data table and seed data
+- Php-cs-fixer for automated PSR-2 compliance and other code maintenance benefits
+- Phpunit- coverage for ensuring/inspecting code coverage of PHPUnit tests
+- Phpdocumentor for checking Docblocks
+- Make for shortening repetitive console commands
+
 ## Development Process
 
 - Followed directions from the [formstack server-playbooks-devtest](https://github.com/formstack/server-playbooks-devtest)
 
-- Struggled a bit trying to get the VM running consistently on Ubuntu 16.04 (also Win 10, the two bootable disks I have available to me, and I'm *totally* on board with the single OS for all developers concept now, if I wasn't before, because this took too large a chunk of the time I spent on this project). The primary issues were updating multiple software versions, killing ssh-agent and net-ssh procs, and apparently nonstandard NFS ports, since enabling UDP NFS requests in UFW didn't work and I finally just disabled UFW altogether (**not** an ideal solution but the time pressures are elsewhere right now).
+- Troubleshooting the Vagrant image lost me a couple of days. The primary issues were:
+    - Software versions (Vagrant/VirtualBox/GuestAdditions - the vagrant-guestadditions plugin saved this)
+    - SSH authentication (pkilled ssh-agent and net-ssh)
+    - NFS file synch failures (Enabling UDP NFS requests in UFW didn't work and I finally just disabled UFW altogether (**not** an ideal solution but the time pressures were elsewhere).
 
-- Put together the development tools config files, directory & file structure, and made the Phinx migration for my initial commit.
 
-- Decided on a repository pattern for the model/domain/data abstraction layer, started test driven development with PHPUnit and fleshed out a draft, got Docblocks in place, refined build tools, autoloading, and build process, checked progress with PHPDocumentor and PHPUnit-coverage. Kept code in style bounds with php-cs-fixer, made data seed in Phinx for stable/wipable/restorable test data for the user table.
+- Decided on a repository pattern for the model/domain/data abstraction layer as a reasonably forward-looking persistence agnostic solution for decoupling storage implementation dependencies from the application objects. This will allow unlimited abstract storage systems to interact with the application. For the MySQL adapter, I chose PDO for the same reasons. PDO can be used on top of numerous databases, and so allows significant flexibility to the application.
 
-- Reworked file & directory structure, naming, and namespacing to something that seems more logical to me, though I suppose some might complain about the names of some of the files being the same. But with namespacing, I think it's pretty clear where everything stands in relation, and this is what feels the most logical.
+- Went back and forth some with naming conventions and file organization. Finally decided to go with the PSR group's bylaws, which many argue against (one article writer even suggested using the "interface" suffix was enough to get one fired at his office), but since I'm following their standards, I figure their bylaws will do as well. Besides, I find the "Hungarian Notation" to be more readable when type hinting, even if it's semantically debatable.
+
+- Tried to stick to setter injection for future flexibility.
+
+- Tried to type hint as much as feasible, except where it would prevent implementation polymorphism.
+
+- Delegated error handling, leaving it to PHP or a consumer application for handling, including letting PDO errors bubble through PHP.
 
 ## Instructions
 
@@ -19,14 +38,13 @@
 ```
 git clone https://github.com/virtualstyle/formstack-devtest.git
 ```
-- Spin up vagrant VM
+
+- Navigate to the repo clone folder (either locally or spin up the vagrant VM) and run composer install
 
 ```
-vagrant up
-```
-- Navigate to the repo clone folder (either locally or on the VM) and run composer install
+#To spin up and load a VM console:
+vagrant up && vagrant ssh
 
-```
 composer install
 ```
 - I've included a makefile for convenience. The following commands will get the help info:
@@ -52,7 +70,7 @@ gitpush                Executes Git push
 php-xml                Enables php-xml extension for PHPUnit
 ```
 
-These commands can be passed to make to create and destroy the MySQL table and test data, build the PHPDocs, execute the PHPUnit tests, and build the PHPUnit code coverage report, as well as fix any code styling mistakes and add, commit, & push the Git repo. Docs and coverage reports are in the /build directory. Phinx migrations and seeds are in the tests directory.
+These commands can be passed to make to create and destroy the MySQL table and test data, build the PHPDocs, execute the PHPUnit tests, and build the PHPUnit code coverage report, as well as fix any code styling mistakes and add, commit, & push the Git repo. Docs, coverage reports, and Phinx migrations and seeds are in the /build directory.
 
 ***NOTE* - PHPUnit requires php-xml to install and run. Composer does not manage PHP extensions, so I added a make entry.**
 

@@ -2,13 +2,15 @@
 /**
  * PDODatabase implements the Database interface with PDO.
  */
-namespace FormstackDevtest\Model\Repository\Database\Pdo;
+namespace Virtualstyle\FormstackDevtest\Model\Repository\Database\Pdo;
+
+use Virtualstyle\FormstackDevtest\Model\Repository as Repository;
 
 /**
  * PDODatabase provides a concrete implementation of the Database interface
  * using the flexibility of PDO.
  */
-class Database implements \FormstackDevtest\Model\Repository\Database\Database
+class PdoDatabase implements Repository\Database\DatabaseInterface
 {
     /**
      * The PDO database connection.
@@ -54,7 +56,7 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
      *                                        Inject a connection interface implementer implemented object
      */
     public function setConnection(
-        \FormstackDevtest\Model\Repository\Database\Connection $connection)
+        Repository\Database\ConnectionInterface $connection)
     {
         $this->connection = $connection;
     }
@@ -95,7 +97,9 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
      */
     public function prepare($sql, array $options = array())
     {
-        $this->statement = $this->connection->getConnection()->prepare($sql, $options);
+        $this->statement = $this->connection
+            ->getConnection()
+            ->prepare($sql, $options);
 
         return $this;
     }
@@ -105,7 +109,7 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
      *
      * @method execute
      *
-     * @param array $parameters Array of parameters and SQL logic operators
+     * @param array $parameters An array of parameters
      *
      * @return PDOResult
      */
@@ -121,7 +125,7 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
      *
      * @method fetch
      *
-     * @param array $options Array or retrieval options
+     * @param array $options An array or retrieval options
      *
      * @return array
      */
@@ -137,7 +141,8 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
             $this->cursorOffset = $options['cursorOffset'];
         }
 
-        return $this->getStatement()->fetch($this->fetchMode, $this->cursorOrientation, $this->cursorOffset);
+        return $this->getStatement()->fetch(
+            $this->fetchMode, $this->cursorOrientation, $this->cursorOffset);
     }
 
     /**
@@ -145,7 +150,7 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
      *
      * @method fetchAll
      *
-     * @param array $options Array or retrieval options
+     * @param array $options An array or retrieval options
      *
      * @return array
      */
@@ -185,12 +190,43 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
     }
 
     /**
+     * Select a collection of entities from the data store.
+     *
+     * @method select
+     *
+     * @param mixed $table      Table name or object
+     * @param array $parameters An array of field => value
+     *
+     * @return int
+     */
+    public function select($table, array $parameters = array(),
+        bool $operator = false)
+    {
+        if ($parameters) {
+            $where = array();
+            foreach ($parameters as $col => $value) {
+                unset($parameters[$col]);
+                $parameters[':'.$col] = $value;
+                $where[] = $col.' = :'.$col;
+            }
+        }
+
+        $sql = 'SELECT * FROM '.$table
+            .(($parameters) ? ' WHERE '
+            .implode(' '.$operator.' ', $where) : ' ');
+        $this->prepare($sql)
+            ->execute($parameters);
+
+        return $this;
+    }
+
+    /**
      * Insert an entity into the data store.
      *
      * @method insert
      *
      * @param mixed $table      Table name or object
-     * @param array $parameters Array or retrieval options
+     * @param array $parameters An array or retrieval options
      *
      * @return array
      */
@@ -203,7 +239,7 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
             $parameters[':'.$col] = $value;
         }
 
-        $sql = 'INSERT INTO '.$table
+        $sql = 'INSERT intO '.$table
             .' ('.$cols.')  VALUES (:'.$values.')';
 
         return (int) $this->prepare($sql)
@@ -217,7 +253,7 @@ class Database implements \FormstackDevtest\Model\Repository\Database\Database
      * @method update
      *
      * @param mixed $table      Table name or object
-     * @param array $parameters Array of field => value
+     * @param array $parameters An array of field => value
      * @param mixed $where      Where clause string or object
      *
      * @return int

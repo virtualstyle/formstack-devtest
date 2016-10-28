@@ -1,21 +1,21 @@
 <?php
 /**
- * PdoDatabaseConnection object unit tests.
+ * PdoDatabase object unit tests.
  */
-namespace FormstackDevtest\Model\Repository\Database\Pdo;
+namespace Virtualstyle\FormstackDevtest\Model\Repository\Database\Pdo;
 
 /**
- *  PdoDatabaseConnection object unit test class.
+ *  PdoDatabase object unit test class.
  */
-class DatabaseTest extends \PHPUnit_Framework_TestCase
+class PdoDatabaseTest extends \PHPUnit_Framework_TestCase
 {
     protected $pdo_db;
 
     protected function setUp()
     {
-        $this->pdo_db = new Database();
+        $this->pdo_db = new PdoDatabase();
 
-        $pdo_connection = new Connection();
+        $pdo_connection = new PdoConnection();
         $pdo_connection->setConfig(
             array('dsn' => PDO_DSN, 'user' => PDO_USER, 'password' => PDO_PASS,
                 'driverOptions' => array(),
@@ -33,7 +33,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     public function testSetConnection()
     {
         $this->setUp();
-        $this->assertTrue($this->pdo_db->getConnection() instanceof Connection);
+        $this->assertTrue($this->pdo_db->getConnection() instanceof PdoConnection);
     }
 
     public function testPrepare()
