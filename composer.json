@@ -1,11 +1,27 @@
 {
     "name": "virtualstyle/formstack-devtest",
+    "type": "project",
     "description": "Formstack Software Engineer Assignment",
-    "keywords": ["rob wood", "formstack"],
+    "keywords": [
+        "rob wood",
+        "formstack",
+        "framework",
+        "project"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rob Wood",
+            "homepage": "https://rob-wood.net"
+        }
+    ],
     "require": {
         "php": ">=7.0",
-        "ext-dom": "*",
-        "robmorgan/phinx": "^0.6.4"
+        "robmorgan/phinx": "^0.6.4",
+        "aura/cli-kernel": "~2.0",
+        "aura/web-kernel": "~2.0",
+        "aura/view": "^2.2",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.6",
@@ -14,12 +30,24 @@
     },
     "autoload": {
         "psr-4": {
-            "Virtualstyle\\FormstackDevtest\\": "src"
+            "Virtualstyle\\FormstackDevtest\\": "src/",
+            "Aura\\Cli_Project\\_Config\\": "config/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Virtualstyle\\FormstackDevtest\\": "tests"
+            "Virtualstyle\\FormstackDevtest\\": "tests/"
+        }
+    },
+    "extra": {
+        "aura": {
+            "type": "project",
+            "config": {
+                "common": "Aura\\Cli_Project\\_Config\\Common",
+                "dev": "Aura\\Cli_Project\\_Config\\Dev",
+                "test": "Aura\\Cli_Project\\_Config\\Test",
+                "prod": "Aura\\Cli_Project\\_Config\\Prod"
+            }
         }
     },
     "config": {
