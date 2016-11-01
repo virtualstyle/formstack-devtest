@@ -35,13 +35,14 @@ user-delete
     Deletes user data selected by unique id from repository.
 Argument (integer id)
 user-password
-    No summary available.
+    Updates a user password by unique id in repository. Follow the prompts or use arguments: id password.
 user-update
     Save data to an existing user. Follow the prompts or:
 Argument format: id usernametest password email@emailtest.com firstnametest lastnametest
 JSON format: \'{"id":5,"username":"usernametest","password":"password","email":"email@emailtest.com","firstname":"firstnametest","lastname":"lastnametest"}\'
 users
     Lists all user data from the user repository. (No arguments)
+
 ');
         $this->assertSame($expect, $actual);
     }

@@ -269,7 +269,9 @@ class Common extends Config
                 }
 
                 $user->setUsername($data['username']);
-                $user->setPassword($data['password']);
+                if (isset($data['password'])) {
+                    $user->setPassword($data['password']);
+                }
                 $user->setEmail($data['email']);
                 $user->setFirstname($data['firstname']);
                 $user->setLastname($data['lastname']);
@@ -299,7 +301,7 @@ class Common extends Config
                         $data['password'] = $password;
                     }
                 } else {
-                    if ( !is_null($context->argv->get(4))) {
+                    if ( !is_null($context->argv->get(3))) {
                         $user_id = $context->argv->get(2);
                         $user = $user_repo->findById($user_id, 'id, username, email, firstname, lastname');
                         $data = $user->getVars(false);
@@ -310,9 +312,9 @@ class Common extends Config
                 $user->setPassword($data['password']);
 
                 $user->save();
-                $user = $user_repo->findById($user_id, 'id, username, email, firstname, lastname');
+                $user = $user_repo->findById($user_id, 'id, username, password, email, firstname, lastname');
                 $stdio->outln('User updated as follows:');
-                print_r($user->getVars(false));
+                print_r($user->getVars(true));
             }
         );
 
@@ -345,6 +347,7 @@ class Common extends Config
             PHP_EOL.'Argument format: id usernametest password email@emailtest.com firstnametest lastnametest'.
             PHP_EOL.'JSON format: \'{"id":5,"username":"usernametest","password":"password","email":"email@emailtest.com","firstname":"firstnametest","lastname":"lastnametest"}\'');
         $this->modifyCliHelpService($di, 'user-delete', 'Deletes user data selected by unique id from repository.' .PHP_EOL . 'Argument (integer id)');
+        $this->modifyCliHelpService($di, 'user-password', 'Updates a user password by unique id in repository. Follow the prompts or use arguments: id password.');
     }
 
     /**

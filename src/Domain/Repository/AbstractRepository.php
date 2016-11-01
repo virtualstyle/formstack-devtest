@@ -61,16 +61,22 @@ abstract class AbstractRepository
      *
      * @return mixed
      */
-    public function findById($id, $columns = '*')
+    public function findById($id, string $columns = '*')
     {
         $this->database->select($this->collection_name,
-            array('id' => $id), false, $columns = 'id, username, email, firstname, lastname');
+            array('id' => $id), false, $columns);
 
         if (!$data = $this->database->fetch()) {
             return false;
         }
 
-        return $this->createObject($data);
+        if ($columns == '*' || strpos($columns, 'password') !== false) {
+            $get_password = true;
+        } else {
+            $get_password = false;
+        }
+
+        return $this->createObject($data, $get_password);
     }
 
     /**
@@ -96,7 +102,12 @@ abstract class AbstractRepository
 
         if ($result) {
             foreach ($result as $data) {
-                $collection[] = $this->createObject($data);
+                if ($columns == '*' || strpos($columns, 'password') !== false) {
+                    $get_password = true;
+                } else {
+                    $get_password = false;
+                }
+                $collection[] = $this->createObject($data, $get_password);
             }
         }
 
@@ -113,5 +124,5 @@ abstract class AbstractRepository
      *
      * @return mixed
      */
-    abstract protected function createObject(array $data);
+    abstract protected function createObject(array $data, bool $get_password = false);
 }

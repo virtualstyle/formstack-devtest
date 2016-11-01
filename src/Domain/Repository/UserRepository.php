@@ -8,7 +8,8 @@
 
 namespace Virtualstyle\FormstackDevtest\Domain\Repository;
 
-use Virtualstyle\FormstackDevtest\Domain\User as AppUser;
+use Virtualstyle\FormstackDevtest\Domain\User\User;
+use Virtualstyle\FormstackDevtest\Domain\User\UserInterface;
 
 /**
  * User object repository implementation.
@@ -31,7 +32,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      *
      * @return mixed
      */
-    public function insert(AppUser\UserInterface $user)
+    public function insert(UserInterface $user)
     {
         $parameters = $user->getVars();
         $parameters['password'] = $this->database->hashPassword($parameters['password']);
@@ -52,7 +53,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      *
      * @return mixed
      */
-    public function update(AppUser\UserInterface $user, bool $update_password = false)
+    public function update(UserInterface $user, bool $update_password = false)
     {
         $parameters = $user->getVars($update_password);
         if ($update_password) {
@@ -76,7 +77,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      */
     public function delete($id)
     {
-        if ($id instanceof AppUser\UserInterface) {
+        if ($id instanceof UserInterface) {
             $id = $id->getId();
         }
 
@@ -92,10 +93,14 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      *
      * @return User
      */
-    protected function createObject(array $data)
+    protected function createObject(array $data, bool $get_password = false)
     {
-        $data['validate_password'] = false;
-        $user = new AppUser\User($data);
+        if ($get_password) {
+            $data['validate_password'] = true;
+        } else {
+            $data['validate_password'] = false;
+        }
+        $user = new User($data);
         $user->setRepo($this);
 
         return $user;

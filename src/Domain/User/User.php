@@ -102,6 +102,7 @@ class User implements UserInterface
     public function __construct(array $data = array())
     {
         $validate_password = true;
+
         if (isset($data['validate_password'])) {
             $validate_password = $data['validate_password'];
         }
@@ -320,7 +321,7 @@ class User implements UserInterface
             }
         } else {
             if ($this->validateData($this->getVars(!is_null($this->password)), !is_null($this->password)) === true) {
-                $this->repo->update($this);
+                $this->repo->update($this, !is_null($this->password));
                 $id = true;
             }
         }
@@ -338,7 +339,7 @@ class User implements UserInterface
      *
      * @return bool
      */
-    protected function validateData(array $data, bool $validate_password = true)
+    public function validateData(array $data, bool $validate_password = true)
     {
         if (empty($data)) {
             throw new \InvalidArgumentException(self::ERR_MSG_EMPTY_DATA);

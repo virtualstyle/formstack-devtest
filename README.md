@@ -134,6 +134,8 @@ JSON format: '{"username":"usernametest","password":"password","email":"email@em
 user-delete
     Deletes user data selected by unique id from repository.
 Argument (integer id)
+user-password
+    Updates a user password by unique id in repository. Follow the prompts or use arguments: id password.
 user-update
     Save data to an existing user. Follow the prompts or:
 Argument format: id usernametest password email@emailtest.com firstnametest lastnametest
@@ -149,6 +151,8 @@ php index.php users
 
 #View a user by id (Enter valid user ID at prompt)
 php index.php user
+#Or
+php index.php user id
 
 #update a user(Enter valid user ID and data to be changed at prompt)
 php index.php user-update
@@ -166,4 +170,6 @@ php index.php user-create '{"username":"usernametest","password":"password","ema
 
 #Delete a user (Enter valid user ID at prompt)
 php index.php user-delete
+#Or
+php index.php user-delete id
 ```

@@ -32,6 +32,15 @@ interface DatabaseInterface
     public function getConnection();
 
     /**
+     * Expose the statement for reuse/sharing.
+     *
+     * @method getStatement
+     *
+     * @return \PDOStatement
+     */
+    public function getStatement();
+
+    /**
      * Prepare a sql statement/object for execution.
      *
      * @method prepare
@@ -77,6 +86,26 @@ interface DatabaseInterface
     public function fetchAll(array $options = array());
 
     /**
+     * Gets the last auto generated id from database session.
+     *
+     * @method getLastInsertId
+     *
+     * @param string $name Name of the sequence object
+     *
+     * @return int
+     */
+    public function getLastInsertId($name = null);
+
+    /**
+     * Gets counts of rows affected by last database operation.
+     *
+     * @method countAffectedRows
+     *
+     * @return int
+     */
+    public function countAffectedRows();
+
+    /**
      * Select a collection of entities from the data store.
      *
      * @method select
@@ -89,6 +118,17 @@ interface DatabaseInterface
      */
     public function select($table, array $parameters = array(),
         bool $or = false);
+
+    /**
+     * Run a password through MySQL's PASSWORD() function.
+     *
+     * @method hashPassword
+     *
+     * @param string $password The password string to hash
+     *
+     * @return string
+     */
+    public function hashPassword(string $password);
 
     /**
      * Insert an entity into the data store.

@@ -9,6 +9,7 @@
 namespace Virtualstyle\FormstackDevtest\Domain\Repository;
 
 use Virtualstyle\FormstackDevtest\Domain\User\UserInterface;
+use Virtualstyle\FormstackDevtest\Domain\Repository\Database\DatabaseInterface;
 
 /**
  * Interface between user data storage and application objects.
@@ -22,7 +23,16 @@ interface UserRepositoryInterface
      *
      * @param DatabaseInterface $database A valid DatabaseInterface implementation
      */
-    public function setDatabase(Database\DatabaseInterface $database);
+    public function setDatabase(DatabaseInterface $database);
+
+    /**
+     * Expose the DatabaseInterface implementation for this repository.
+     *
+     * @method getDatabase
+     *
+     * @param DatabaseInterface $database A valid DatabaseInterface implementation
+     */
+    public function getDatabase();
 
     /**
      * Get an object from the data store by ID.
@@ -33,7 +43,7 @@ interface UserRepositoryInterface
      *
      * @return mixed
      */
-    public function findById($id);
+    public function findById($id, string $columns);
 
     /**
      * Get a collection of objects from the data store by criteria.
