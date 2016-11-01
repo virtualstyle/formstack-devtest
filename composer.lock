@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "038bd36a7c3cd7b6da6a5a5853a17f48",
-    "content-hash": "76b1b4af50b4073cdf5a9a0b6da7c9d5",
+    "hash": "b6b616c533574e9199ef4a9a1c366863",
+    "content-hash": "6a0d654042e131bb790d52ccaebc2016",
     "packages": [
         {
             "name": "aura/cli",
@@ -322,66 +322,6 @@
                 "routing"
             ],
             "time": "2016-10-03 20:00:15"
-        },
-        {
-            "name": "aura/view",
-            "version": "2.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/auraphp/Aura.View.git",
-                "reference": "57296d7357fd34412436ce4028cfd3ce3e08f049"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.View/zipball/57296d7357fd34412436ce4028cfd3ce3e08f049",
-                "reference": "57296d7357fd34412436ce4028cfd3ce3e08f049",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "aura/di": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "aura": {
-                    "type": "library",
-                    "config": {
-                        "common": "Aura\\View\\_Config\\Common"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aura\\View\\": "src/",
-                    "Aura\\View\\_Config\\": "config/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Aura.View Contributors",
-                    "homepage": "https://github.com/auraphp/Aura.View/contributors"
-                }
-            ],
-            "description": "Provides an implementation of the TemplateView and TwoStepView patterns, with support for helpers and for closures as templates, using PHP itself as the templating language.",
-            "homepage": "https://github.com/auraphp/Aura.View",
-            "keywords": [
-                "Escape",
-                "escaper",
-                "escaping",
-                "template",
-                "template view",
-                "two step view",
-                "two-step view",
-                "twostep view",
-                "view"
-            ],
-            "time": "2016-08-17 17:42:35"
         },
         {
             "name": "aura/web",

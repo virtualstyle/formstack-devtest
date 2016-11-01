@@ -34,6 +34,8 @@ JSON format: \'{"username":"usernametest","password":"password","email":"email@e
 user-delete
     Deletes user data selected by unique id from repository.
 Argument (integer id)
+user-password
+    No summary available.
 user-update
     Save data to an existing user. Follow the prompts or:
 Argument format: id usernametest password email@emailtest.com firstnametest lastnametest
