@@ -143,10 +143,20 @@ class Common extends Config
 
         $dispatcher->setObject(
             'user',
-            function ($id) use ($context, $stdio, $logger, $user_repo) {
-                $user = $user_repo->findById($id, 'id, username, email, firstname, lastname');
-                print_r($user->getVars(false));
+            function () use ($context, $stdio, $logger, $user_repo) {
+                if (is_null($context->argv->get(2))) {
+                    $stdio->outln('Enter the id of the user to fetch and press <Enter>.');
+                    $user_id = $stdio->in();
+                } else {
+                    $user_id = $context->argv->get(2);
+                }
 
+                $user = $user_repo->findById($user_id, 'id, username, email, firstname, lastname');
+                if(!$user) {
+                    $stdio->outln('User '.$user_id.' not found.');
+                } else {
+                    print_r($user->getVars(false));
+                }
             }
         );
 
@@ -223,25 +233,20 @@ class Common extends Config
                     if ($username) {
                         $data['username'] = $username;
                     }
-                    $stdio->outln('Enter the new password and press <Enter> (leave blank to leave as is.)');
-                    $password = $stdio->in();
-                    if ($password) {
-                        $data['username'] = $password;
-                    }
                     $stdio->outln('Enter the new email address and press <Enter> (leave blank to leave as is['.$user->getEmail().']).');
                     $email = $stdio->in();
                     if ($email) {
-                        $data['username'] = $email;
+                        $data['email'] = $email;
                     }
                     $stdio->outln('Enter the new first name and press <Enter> (leave blank to leave as is['.$user->getFirstname().']).');
                     $firstname = $stdio->in();
                     if ($firstname) {
-                        $data['username'] = $firstname;
+                        $data['firstname'] = $firstname;
                     }
                     $stdio->outln('Enter the new last name and press <Enter> (leave blank to leave as is['.$user->getLastname().']).');
                     $lastname = $stdio->in();
                     if ($lastname) {
-                        $data['username'] = $lastname;
+                        $data['lastname'] = $lastname;
                     }
                 } else {
                     if ( !is_null($context->argv->get(4))) {
@@ -277,10 +282,49 @@ class Common extends Config
         );
 
         $dispatcher->setObject(
+            'user-password',
+            function () use ($context, $stdio, $logger, $user_repo) {
+                $data = array();
+
+                if (is_null($context->argv->get(2))) {
+                    $stdio->outln('Enter the user ID and press <Enter>');
+                    $user_id = $stdio->in();
+                    $user = $user_repo->findById($user_id, 'id, username, email, firstname, lastname');
+
+                    $data = $user->getVars(false);
+
+                    $stdio->outln('Enter the new password and press <Enter> (leave blank to leave as is.)');
+                    $password = $stdio->in();
+                    if ($password) {
+                        $data['password'] = $password;
+                    }
+                } else {
+                    if ( !is_null($context->argv->get(4))) {
+                        $user_id = $context->argv->get(2);
+                        $user = $user_repo->findById($user_id, 'id, username, email, firstname, lastname');
+                        $data = $user->getVars(false);
+                        $data['password'] = $context->argv->get(3);
+                    }
+                }
+
+                $user->setPassword($data['password']);
+
+                $user->save();
+                $user = $user_repo->findById($user_id, 'id, username, email, firstname, lastname');
+                $stdio->outln('User updated as follows:');
+                print_r($user->getVars(false));
+            }
+        );
+
+        $dispatcher->setObject(
             'user-delete',
             function () use ($context, $stdio, $logger, $user_repo) {
-                $stdio->outln('Enter the user ID and press <Enter>');
-                $user_id = $stdio->in();
+                if (is_null($context->argv->get(2))) {
+                    $stdio->outln('Enter the user ID and press <Enter>');
+                    $user_id = $stdio->in();
+                } else {
+                    $user_id = $context->argv->get(2);
+                }
                 $user = $user_repo->findById($user_id, 'id, username, email, firstname, lastname');
                 if(!$user) {
                     $stdio->outln('User '.$user_id.' not found.');
